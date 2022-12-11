@@ -25,6 +25,9 @@ setup(
         'console_scripts': [
 			'talker = mypkg.talker:main',
 			'listener = mypkg.listener:main',
+			'result = mypkg.result:main',
+			'prime_factorizer = mypkg.prime_factorizer:main',
+			'sqsum_calculator = mypkg.sqsum_calculator:main',
         ],
     },
 )

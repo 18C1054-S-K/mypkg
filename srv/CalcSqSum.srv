@@ -1,0 +1,5 @@
+int16[] primes
+int16[] indexs
+---
+int16 x
+int16 y

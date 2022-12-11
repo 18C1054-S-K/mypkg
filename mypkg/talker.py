@@ -6,7 +6,7 @@ class Talker():
 	def __init__(self, node):
 		self.pub = node.create_publisher(Int16, 'countup', 10)
 		self.n = 0
-		node.create_timer(0.5, self.cb)
+		node.create_timer(0.8, self.cb)
 
 
 	def cb(self):
