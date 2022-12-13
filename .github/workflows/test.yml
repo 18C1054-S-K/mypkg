@@ -9,7 +9,10 @@ jobs:
       - name: build and test
         run: |
           rsync -av ./ /root/ros2_ws/src/mypkg
+          cd /root/ros2_ws/src
+          git clone https://github.com/18C1054-S-K/mypkg_msgs
           cd /root/ros2_ws
           rosdep update
           rosdep install -i --from-path src --rosdistro humble -y
           bash -xv ./src/mypkg/test/test.bash /root
+          bash -xv ./src/mypkg/test/sqsum_test.bash /root
