@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2022 ShinagwaKazemaru
+# SPDX-FileCopyrightIdentifer: MIT License
+
 import os
 from glob import glob
 from setuptools import setup

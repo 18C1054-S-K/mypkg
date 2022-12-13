@@ -1,8 +1,11 @@
 #!/usr/bin/env python3
 
+# SPDX-FileCopyrightText: 2022 ShinagwaKazemaru
+# SPDX-FileCopyrightIdentifer: MIT License
+
 import rclpy
 from rclpy.node import Node
-from mypkg.srv import CalcSqSum
+from mypkg_msgs.srv import CalcSqSum
 
 class SqSumCalculator(Node):
 	def __init__(self, node_name='sqsum_calculator'):

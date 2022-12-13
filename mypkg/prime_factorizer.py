@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
 
+# SPDX-FileCopyrightText: 2022 ShinagwaKazemaru
+# SPDX-FileCopyrightIdentifer: MIT License
+
 import rclpy
 from rclpy.node import Node
 from std_msgs.msg import Int16
-from mypkg.msg import Primes
+from mypkg_msgs.msg import Primes
 
 class PrimeFactorizer(Node):
 	def __init__(self, node_name='prime_factorizer'):

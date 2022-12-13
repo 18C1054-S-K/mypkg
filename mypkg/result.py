@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
 
+# SPDX-FileCopyrightText: 2022 ShinagwaKazemaru
+# SPDX-FileCopyrightIdentifer: MIT License
+
 import rclpy
 from rclpy.node import Node
-from mypkg.msg import Primes
-from mypkg.srv import CalcSqSum
+from mypkg_msgs.msg import Primes
+from mypkg_msgs.srv import CalcSqSum
 
 class Result(Node):
 	def __init__(self, node_name='result'):
@@ -42,13 +45,14 @@ class Result(Node):
 				req.primes = primes
 				req.indexs = indexs
 				self.future = self.client.call_async(req)
-				self.n_waiting = msg.original
+				self.n = msg.original
+				self.c = c
 			else:
-				self.get_logger().info("%d can't be 2 squares sum" % msg.original)
+				self.get_logger().info("%d can't be sum of 2 square numbers" % msg.original)
 
 
 	def on_respond(self, res):
-		self.get_logger().info("%d = %d^2 + %d^2" % (self.n_waiting, res.x, res.y))
+		self.get_logger().info("%d = %d^2 + %d^2" % (self.n, self.c * res.x, self.c * res.y))
 		self.future = None
 
 

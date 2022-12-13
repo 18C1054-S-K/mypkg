@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# SPDX-FileCopyrightText: 2022 ShinagwaKazemaru
+# SPDX-FileCopyrightIdentifer: MIT License
+
 dir=~
 [ "$1" != "" ] && dir="$1"
 
