@@ -1,4 +1,9 @@
-log/build_*
 *.log
 *.pyc
 *__pycache__*
+build/*
+build
+install/*
+install
+log/*
+log
