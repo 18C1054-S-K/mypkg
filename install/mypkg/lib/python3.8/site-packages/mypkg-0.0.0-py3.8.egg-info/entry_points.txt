@@ -1,7 +1,0 @@
-[console_scripts]
-listener = mypkg.listener:main
-prime_factorizer = mypkg.prime_factorizer:main
-result = mypkg.result:main
-sqsum_calculator = mypkg.sqsum_calculator:main
-talker = mypkg.talker:main
-
