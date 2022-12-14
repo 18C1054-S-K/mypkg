@@ -18,13 +18,16 @@ class Result(Node):
 
 
 	def cb(self, msg):
+		# 負の数なら即ログ出力
 		if msg.original < 0:
 			self.get_logger().info("%d can't be 2 squares sum" % msg.original)
+		# 0、1のときも
 		elif msg.original == 0:
 			self.get_logger().info("0 = 0^2 + 0^2")
 		elif msg.original == 1:
 			self.get_logger().info("1 = 1^2 + 0^2")
 		else:
+			# 二平方和か判定
 			isSqSum = True
 			c = 1
 			primes = []
@@ -40,6 +43,7 @@ class Result(Node):
 					primes.append(p)
 					indexs.append(msg.indexs[i])
 
+			# 二平方和ならサービス呼び出す
 			if isSqSum:
 				req = CalcSqSum.Request()
 				req.primes = primes
@@ -47,10 +51,12 @@ class Result(Node):
 				self.future = self.client.call_async(req)
 				self.n = msg.original
 				self.c = c
+			# でないならログ出力
 			else:
 				self.get_logger().info("%d can't be sum of 2 square numbers" % msg.original)
 
 
+	# サービスのレスポンス時に呼ばれる関数
 	def on_respond(self, res):
 		self.get_logger().info("%d = %d^2 + %d^2" % (self.n, self.c * res.x, self.c * res.y))
 		self.future = None
@@ -61,6 +67,7 @@ def main():
 	r = Result()
 	while rclpy.ok():
 		rclpy.spin_once(r)
+		# not r.future is None <=> サービス待機中
 		if not r.future is None and r.future.done():
 			try:
 				res = r.future.result()

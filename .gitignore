@@ -7,3 +7,4 @@ install/*
 install
 log/*
 log
+sqsum.bash
