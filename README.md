@@ -74,6 +74,22 @@ git clone https://github.com/18C1054-S-K/mypkg_msgs
   - talker、prime_factorizer、sqsum_calculator、resultノードを起動します。<br>
     ノード等の関係は下図のようになっています。<br>
     ![sqsum_launch](images/sqsum_launch.png)
+  - 実行結果
+    ```
+    [result-4] [INFO] [1671006815.237557900] [result]: 0 = 0^2 + 0^2
+    [result-4] [INFO] [1671006816.022180000] [result]: 1 = 1^2 + 0^2
+    [result-4] [INFO] [1671006816.819932500] [result]: 2 = 1^2 + 1^2
+    [result-4] [INFO] [1671006817.615839700] [result]: 3 can't be sum of 2 square numbers
+    [result-4] [INFO] [1671006818.413111000] [result]: 4 = 2^2 + 0^2
+    [result-4] [INFO] [1671006819.209692700] [result]: 5 = 2^2 + 1^2
+    [result-4] [INFO] [1671006820.021284600] [result]: 6 can't be sum of 2 square numbers
+    [result-4] [INFO] [1671006820.817954500] [result]: 7 can't be sum of 2 square numbers
+    [result-4] [INFO] [1671006821.621472000] [result]: 8 = 2^2 + 2^2
+    [result-4] [INFO] [1671006822.411718400] [result]: 9 = 3^2 + 0^2
+    [result-4] [INFO] [1671006823.225850200] [result]: 10 = 3^2 + 1^2
+    [result-4] [INFO] [1671006824.020061700] [result]: 11 can't be sum of 2 square numbers
+    ```
+    一部省略しています。
 
 
 ## 背景にある数学
