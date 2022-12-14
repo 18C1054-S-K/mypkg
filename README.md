@@ -11,7 +11,7 @@ ROS2 foxy
 
 
 ## 利用にあたって
-このパッケージでは[mypkg_msgs](https://github.com/18C1054-S-K/mypkg_msgs)で定義されたメッセージ、サービスを用いています。<br>
+このパッケージでは[mypkg_msgs](https://github.com/18C1054-S-K/mypkg_msgs "https://github.com/18C1054-S-K/mypkg_msgs")で定義されたメッセージ、サービスを用いています。<br>
 そのため、予めmypkg_msgsがcloneされている必要があります。
 #### cloneの方法
 <ros2_ws>/srcに移動した上で
@@ -26,39 +26,35 @@ git clone https://github.com/18C1054-S-K/mypkg_msgs
 - listener
   - 省略
 - prime_factorizer
-  - /countupトピック(Int16型)で受け取った整数を素因数分解して、<br>
-    結果を/primesトピック(Primes型)で渡します。
+  - /countupトピックで受け取った整数を素因数分解して、結果を/primesトピックで渡します。
 - result
-  - /primesトピック(Primes型)で受け取った素因数分解の結果から、<br>
-    その整数が2つの平方数の和として表せるかを判定し、表せないならばその旨をログに出力、<br>
-    表せるならば/calc_sq_sumサービス(CalcSqSum型)に計算させて、結果をログに出力します。
+  - /primesトピックで受け取った素因数分解の結果から、その整数が2つの平方数の和として表せるかを判定し、<br>
+    表せないならばその旨を、<br>
+    表せるならば/calc_sq_sumサービスに計算させて、結果をログに出力します。
 - sqsum_calculator
-  - /calc_sq_sumサービス(CalcSqSum型)のサーバーです。<br>
+  - /calc_sq_sumサービスのサーバーです。<br>
     受け取った素因数分解の結果を元に2つの平方数の和に分解して返します。
 
 
-## launchファイル
-- talk_listen
+## トピック
+- /countup
   - 省略
-- sqsum
-  - talker、prime_factorizer、sqsum_calculator、resultを起動します。<br>
-    一定時間ごとに0から昇順に整数を2つの平方数の和に分解し、結果をログに出力します。
-
-
-## メッセージ、サービス
-- mypkg_msgs/msg/Primes
-  - 整数、素因数の配列、対応する指数の配列からなるメッセージです。<br>
-    下記が定義です。
+- /primes
+  - 整数とその素因数分解の情報を渡すためのトピックです。
+  - mypkg_msgs/msg/Primes型であり、定義は下記の通りです。
     ```
     int16 original
     int16[] primes
     int16[] indexs
     ```
-    例えばoriginal=20なら20=2×2×5なのでprimes=[2,5]、indexs=[2,1]となるようにします。
+    originalは元の整数、primesは素因数の配列、indexsは対応する指数の配列です。
+  - 例えばoriginal=20なら20=2×2×5なのでprimes=[2,5]、indexs=[2,1]となります。
+
+
+## サービス
 - mypkg_msgs/srv/CalcSqSum
   - 整数の素因数分解を受け取って、2つの平方数の和に分解するサービスです。<br>
-    リクエストは素因数の配列、対応する指数の配列、レスポンスは計算結果の2つの整数です。<br>
-    下記が定義です。
+  - mypkg_msgs/srv/CalcSqSum型であり、定義は下記の通りです。
     ```
     int16[] primes
     int16[] indexs
@@ -66,26 +62,36 @@ git clone https://github.com/18C1054-S-K/mypkg_msgs
     int16 x
     int16 y
     ```
-    x > yになります。
-    例えばprimes=[2,5]、indexs=[2,1]のとき、このリクエストは2×2×5=20を表していて、<br>
-    この数は20=4^2+2^2と分解できるのでレスポンスはx=4、y=2になります。
+    リクエストのprimesは素因数の配列、indexsは対応する指数の配列、<br>
+    レスポンスのx、yは計算結果の2つの整数です。x > yです。
+  - 例えばリクエストがprimes=[2,5]、indexs=[2,1]のとき、これは2×2×5=20を表していて、20は4^2+2^2と分解できるのでレスポンスはx=4、y=2になります。
 
 
-## 背景にある背景
+## launchファイル
+- talk_listen
+  - 省略
+- sqsum
+  - 一定時間ごとに0から昇順に整数を2つの平方数の和に分解し、結果をログに出力します。
+  - talker、prime_factorizer、sqsum_calculator、resultノードを起動します。<br>
+    ノード等の関係は下図のようになっています。<br>
+    ![sqsum_launch](images/sqsum_launch.png)
+
+
+## 背景にある数学
 二平方和定理によると2より大きな素数pについて、2つの平方数の和で表せる⇔p=1(mod4)　が成り立ちます。<br>
 また2つの平方数の和で表せる整数x、yに対し、その積xyも2つの平方数の和で表せます。<br>
 (x=a^2+b^2、y=c^2+d^2 ⇒ xy=(ac-bd)^2+(ad+bc)^2)<br>
-また1、2は2つの平方数の和として表せます。<br>
+また明らかに1、2は2つの平方数の和として表せます。<br>
 (1=1^2+0^2、2=1^2+1^2)<br>
 よって　自然数nが2つの平方数の和として表せる⇔素因数分解したときに3mod4の素因数の指数が偶数　が成り立ちます。<br>
 resultノードはこれを利用しています。
 
 
 ## 参考
-- pythonファイルを書く際に参考にしました。
-  - [note.nkmk.me](https://note.nkmk.me/python/)
-- README.mdを書く際に参考にしました。
-  - [Qiita Markdown記法一覧](https://qiita.com/oreo/items/82183bfbaac69971917f)
+- [Qiita Markdown記法一覧](https://qiita.com/oreo/items/82183bfbaac69971917f "https://qiita.com/oreo/items/82183bfbaac69971917f")
+  - README.mdを書く際に参考にしました。
+- [ROS2 Documentation Creating custom msg and srv files](https://docs.ros.org/en/foxy/Tutorials/Beginner-Client-Libraries/Custom-ROS2-Interfaces.html "https://docs.ros.org/en/foxy/Tutorials/Beginner-Client-Libraries/Custom-ROS2-Interfaces.html")
+  - ROS2のpythonファイルを書く際に参考にしました。
 
 
 ## 著作権
