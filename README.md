@@ -29,11 +29,10 @@ git clone https://github.com/18C1054-S-K/mypkg_msgs
   - /countupトピックで受け取った整数を素因数分解して、結果を/primesトピックで渡します。
 - result
   - /primesトピックで受け取った素因数分解の結果から、その整数が2つの平方数の和として表せるかを判定し、<br>
-    表せないならばその旨を、<br>
-    表せるならば/calc_sq_sumサービスに計算させて、結果をログに出力します。
+    表せないならばその旨を、表せるならば/calc_sq_sumサービスに計算させて、結果をログに出力します。
 - sqsum_calculator
-  - /calc_sq_sumサービスのサーバーです。<br>
-    受け取った素因数分解の結果を元に2つの平方数の和に分解して返します。
+  - /calc_sq_sumサービスのサーバーです。
+  - 受け取った素因数分解の結果を元に2つの平方数の和に分解して返します。
 
 
 ## トピック
@@ -52,7 +51,7 @@ git clone https://github.com/18C1054-S-K/mypkg_msgs
 
 
 ## サービス
-- mypkg_msgs/srv/CalcSqSum
+- /calc_sq_sum
   - 整数の素因数分解を受け取って、2つの平方数の和に分解するサービスです。<br>
   - mypkg_msgs/srv/CalcSqSum型であり、定義は下記の通りです。
     ```
