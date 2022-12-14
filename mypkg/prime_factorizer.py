@@ -22,6 +22,8 @@ class PrimeFactorizer(Node):
 		pub_msg.primes = []
 		pub_msg.indexs = []
 
+		# メッセージの値が2以上なら素因数分解
+		# (1以下はprimes、indexsを空のままpublish)
 		if sub_msg.data >= 2:
 			n = sub_msg.data
 			for p in self.primes:
