@@ -67,9 +67,13 @@ git clone https://github.com/18C1054-S-K/mypkg_msgs
 
 
 ## launchファイル
-- talk_listen
+**実行方法**
+```
+ros2 launch mypkg <launchファイル名>
+```
+- talk_listen.launch.py
   - 省略
-- sqsum
+- sqsum.launch.py
   - 一定時間ごとに0から昇順に整数を2つの平方数の和に分解し、結果をログに出力します。
   - talker、prime_factorizer、sqsum_calculator、resultノードを起動します。<br>
     ノード等の関係は下図のようになっています。<br>
@@ -116,4 +120,4 @@ resultノードはこれを利用しています。
 
 ## ライセンス
 MITライセンス<br>
-LICENSEをお読みください。
+[LICENSE](./LICENSE "./LICENSE ")をお読みください。
